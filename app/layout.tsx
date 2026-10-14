@@ -1,0 +1,1 @@
+export const metadata={title:"TOPSHINALAR — Ishonch har bir kilometrda"};export default function Layout({children}:{children:React.ReactNode}){return <html lang="uz"><body>{children}</body></html>}

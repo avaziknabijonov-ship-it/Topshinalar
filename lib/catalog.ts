@@ -1,0 +1,12 @@
+import {env} from 'cloudflare:workers';
+export const defaults={company:'TOPSHINALAR',phone:'',telegram:'',address:'',email:'',hours:'',aboutRu:'Шины для грузового транспорта и спецтехники. Уверенность на каждом километре.',addressRu:'',hoursRu:'',about:'Yuk transporti va maxsus texnika uchun shinalar. Ishonch har bir kilometrda.'};
+export const defaultBanners=[{id:'quarry',title:'Og‘ir texnika.\nKatta imkoniyat.\nIshonchli tanlov.',subtitle:'Karier va maxsus texnika uchun shinalar',image:'/assets/quarry.webp',published:true,sort:0},{id:'highway',title:'Ishonch\nhar bir\nkilometrda.',subtitle:'Magistral va uzoq masofali tashuvlar uchun shinalar',image:'/assets/highway.webp',published:true,sort:1}];
+export const db=()=>{if(!env.DB)throw new Error('Database unavailable');return env.DB};
+export async function list(kind:string){const r=await db().prepare('SELECT id,payload,updated_at FROM records WHERE kind=? ORDER BY updated_at DESC').bind(kind).all();return r.results.map((r:any)=>({...JSON.parse(r.payload),id:r.id}));}
+export async function catalog(){const [products,settings,banners]=await Promise.all([list('products'),list('settings'),list('banners')]);return {products:products.filter(x=>x.published).sort((a,b)=>(a.sort||0)-(b.sort||0)),settings:{...defaults,...settings[0]},banners:(banners.length?banners:defaultBanners).filter(x=>x.published).sort((a,b)=>(a.sort||0)-(b.sort||0))};}
+export function json(x:any,status=200){return Response.json(x,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}})}
+export function admin(req:Request){return !!req.headers.get('oai-authenticated-user-id')&&!!env.ADMIN_EMAIL&&req.headers.get('oai-authenticated-user-email')?.toLowerCase()===env.ADMIN_EMAIL.toLowerCase();}
+export function sameOrigin(req:Request){return req.headers.get('origin')===new URL(req.url).origin;}
+export const text=(x:any,n=1000)=>typeof x==='string'?x.trim().slice(0,n):'';
+export function validImage(x:any){return typeof x==='string'&&(/^\/assets\/[a-zA-Z0-9._-]+$/.test(x)||/^\/media\/[a-f0-9-]+\.(png|jpg|webp)$/.test(x));}
+export async function save(kind:string,id:string,payload:any){await db().prepare('INSERT INTO records (id,kind,payload,updated_at) VALUES (?,?,?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at WHERE records.kind=excluded.kind').bind(id,kind,JSON.stringify(payload),Date.now()).run();}
