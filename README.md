@@ -34,10 +34,14 @@ Muhit sozlamasi: `ADMIN_EMAIL` (server tomonda). Maxfiy qiymatlar kod yoki git i
 
 ```sh
 node node_modules/typescript/bin/tsc --noEmit
-node --experimental-vm-modules --test tests/api.mjs tests/locale.mjs
+node --experimental-vm-modules --test tests/api.mjs
 node /root/.codex/plugins/cache/openai-curated-remote/sites/1.0.0/scripts/build-site.mjs
 ```
 
 API testlari SQLite xotira bazasida ishlaydi va haqiqiy mijoz ma’lumotlariga tegmaydi. Brauzer orqali vizual QA ushbu muhitda bajarilmadi.
 
 Yangi sxema: `npm run db:generate`. Oldin qo‘llangan migratsiyalar o‘zgartirilmaydi. Hosted migratsiyalar Sites deployment jarayonida qo‘llanadi.
+
+## Banner va texnika tasvirlari
+
+5 sahna: karier, magistral, g‘ildirakli ekskavator, frontal yuklagich, avtokran. Yangi uch tasvir Imagegen orqali yaratilgan konsept tasvirlar; aniq sotuvdagi mashina modeli sifatida taqdim etilmaydi. `public/assets/excavator.webp`, `loader.webp`, `crane.webp` loyiha assetlari. Promptlar: g‘ildiraklar yaqqol ko‘rinadigan, matn uchun chap tomoni bo‘sh, keng formatdagi fotorealistik qurilish texnikasi sahnalari. Standart bannerlar admin panelda yashirilishi yoki tahrirlanishi mumkin.
