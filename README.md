@@ -45,3 +45,7 @@ Yangi sxema: `npm run db:generate`. Oldin qo‘llangan migratsiyalar o‘zgartir
 ## Banner va texnika tasvirlari
 
 5 sahna: karier, magistral, g‘ildirakli ekskavator, frontal yuklagich, avtokran. Yangi uch tasvir Imagegen orqali yaratilgan konsept tasvirlar; aniq sotuvdagi mashina modeli sifatida taqdim etilmaydi. `public/assets/excavator.webp`, `loader.webp`, `crane.webp` loyiha assetlari. Promptlar: g‘ildiraklar yaqqol ko‘rinadigan, matn uchun chap tomoni bo‘sh, keng formatdagi fotorealistik qurilish texnikasi sahnalari. Standart bannerlar admin panelda yashirilishi yoki tahrirlanishi mumkin.
+
+## Kategoriyalar
+
+TBR — yuk mashinalari; OTR — maxsus texnika va kara; AGRO — qishloq xo‘jaligi; PCR — yengil avtomobillar. Eski kategoriya nomlari o‘qilganda TBR/OTR kodlariga moslanadi. Mahsulotlar o‘chirilmaydi. Admin tanlovi, katalog filtri va avtomatik tavsif/namuna rasm shu kodlar bilan ishlaydi. AGRO/PCR namuna tasvirlari Imagegen bilan yaratilgan umumiy shina tasvirlari, aniq model rasmi emas.
