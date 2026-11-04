@@ -8,6 +8,13 @@
       "when": 1792008989107,
       "tag": "0000_loose_inertia",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1793810083762,
+      "tag": "0001_catalog_replica",
+      "breakpoints": true
     }
   ]
 }

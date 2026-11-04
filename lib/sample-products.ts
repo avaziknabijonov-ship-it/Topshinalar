@@ -203,6 +203,8 @@ export const sampleProducts=[
 ];
 
 export async function ensureSampleProducts(database:any){
+ // Once the real catalog is enabled, samples cannot be imported again.
+ if(await database.prepare('SELECT enabled FROM catalog_mode WHERE id=1').first())return;
  const marker='sample-import-20261015';
  if(await database.prepare('SELECT id FROM records WHERE id=?').bind(marker).first())return;
  const sql='INSERT OR IGNORE INTO records (id,kind,payload,updated_at) VALUES (?,?,?,?)';
