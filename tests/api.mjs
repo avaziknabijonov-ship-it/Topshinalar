@@ -135,6 +135,7 @@ test('source namespace collision never overwrites or silently merges a legacy pr
  assert.equal((await routes.sync.POST(await syncRequest({...samplePayload(1),source_product_id:'999'}))).status,409);
  assert.equal(JSON.parse(sql.prepare('SELECT payload FROM records WHERE id=?').get('bot-999').payload).name,original.name);
  assert.equal(sql.prepare('SELECT COUNT(*) n FROM catalog_replica WHERE source_product_id=?').get('999').n,0);
+ assert.equal((await routes.admin.POST(request('POST',{id:'bot-999',...original,name:'Edited legacy'}),params('products'))).status,200);
 });
 test('idempotent additive migration preserves legacy records, settings, inquiries and replicas',()=>{
  const before=sql.prepare('SELECT * FROM records ORDER BY id').all(),replicas=sql.prepare('SELECT * FROM catalog_replica ORDER BY source_product_id').all();
